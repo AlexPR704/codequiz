@@ -1,10 +1,10 @@
-const startButton = document.getElementById("start-btn")
-const nextButton = document.getElementById("next-btn")
-const questionContainerElement = document.getElementById("question-container")
-const questionElement = document.getElementById("question")
-const answerButtonsElement = document.getElementById("answer-buttons")
-
-let shuffledQuestions, currentQuestionIndex
+var startButton = document.getElementById("start-btn")
+var nextButton = document.getElementById("next-btn")
+var questionContainerElement = document.getElementById("question-container")
+var questionElement = document.getElementById("question")
+var answerButtonsElement = document.getElementById("answer-buttons")
+var timerEl = document.getElementById("countdown");
+var shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener("click", startGame)
 nextButton.addEventListener("click", () => {
@@ -12,7 +12,27 @@ nextButton.addEventListener("click", () => {
     setNextQuestion()
 })
 
+
+var i = 0;
+
+function prepareRead() {
+    var timeLeft = questions.length * 15;
+    var timeInterval = setInterval(function () {
+        timerEl.textContent = timeLeft + " ";
+        timeLeft--;
+
+        if (timeLeft === 0) {
+            timerEl.textContent = "";
+            // speedRead();
+            clearInterval(timeInterval);
+        }
+        //when timerInterval is equal to zero call score function
+    }, 1000);
+    timerEl.innerText = timeInterval;
+}
+
 function startGame() {
+    prepareRead()
     startButton.classList.add("hide")
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
@@ -28,7 +48,7 @@ function setNextQuestion() {
 function showQuestion(question) {
     questionElement.innerText = question.question
     question.answers.forEach(answer => {
-        const button = document.createElement("button")
+        var button = document.createElement("button")
         button.innerText = answer.text
         button.classList.add("btn")
         if (answer.correct) {
@@ -49,8 +69,8 @@ function resetState() {
 }
 
 function selectAnswer(e) {
-    const selectedButton = e.target
-    const correct = selectedButton.dataset.correct
+    var selectedButton = e.target
+    var correct = selectedButton.dataset.correct
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
@@ -79,7 +99,7 @@ function clearStatusClass(element) {
 }
 
 
-const questions = [
+var questions = [
     {
         question: "What does CSS stand for?",
         answers: [
