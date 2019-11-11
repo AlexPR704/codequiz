@@ -1,10 +1,13 @@
-var startButton = document.getElementById("start-btn")
-var nextButton = document.getElementById("next-btn")
-var questionContainerElement = document.getElementById("question-container")
-var questionElement = document.getElementById("question")
-var answerButtonsElement = document.getElementById("answer-buttons")
-var timerEl = document.getElementById("countdown");
-var shuffledQuestions, currentQuestionIndex
+var startButton = document.getElementById("start-btn");
+var nextButton = document.getElementById("next-btn");
+var questionContainerElement = document.getElementById("question-container");
+var questionElement = document.getElementById("question");
+var answerButtonsElement = document.getElementById("answer-buttons");
+var timerEl = document.getElementById("timer");
+var shuffledQuestions, currentQuestionIndex;
+var gameEnd = false;
+
+
 
 startButton.addEventListener("click", startGame)
 nextButton.addEventListener("click", () => {
@@ -12,23 +15,34 @@ nextButton.addEventListener("click", () => {
     setNextQuestion()
 })
 
-
-var i = 0;
-
 function prepareRead() {
-    var timeLeft = questions.length * 15;
+    // var timeLeft = questions.length * 15;
+    // var timeInterval = setInterval(function () {
+    //     timerEl.textContent = timeLeft + " ";
+    //     timeLeft--;
+
+    //     if (timeLeft === 0) {
+    //         timerEl.textContent = "";
+    //         // speedRead();
+    //         clearInterval(timeInterval);
+    //     }
+    //     //when timerInterval is equal to zero call score function
+    // }, 1000);
+    // timerEl.innerText = timeInterval;
+    var timeLeft = questions.length * 15
     var timeInterval = setInterval(function () {
-        timerEl.textContent = timeLeft + " ";
+        timerEl.textContent = ("Time: ") + timeLeft;
         timeLeft--;
 
         if (timeLeft === 0) {
-            timerEl.textContent = "";
-            // speedRead();
+            timerEl.textContent = "Time: 0";
             clearInterval(timeInterval);
         }
-        //when timerInterval is equal to zero call score function
+        if  (gameEnd === true) {
+            clearInterval(timeInterval);
+        }
+
     }, 1000);
-    timerEl.innerText = timeInterval;
 }
 
 function startGame() {
@@ -78,8 +92,9 @@ function selectAnswer(e) {
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove("hide")
     } else {
-        startButton.innerText = "Restart"
+        startButton.innerText = ("Restart")
         startButton.classList.remove("hide")
+        
     }
 
 }
