@@ -16,19 +16,6 @@ nextButton.addEventListener("click", () => {
 })
 
 function prepareRead() {
-    // var timeLeft = questions.length * 15;
-    // var timeInterval = setInterval(function () {
-    //     timerEl.textContent = timeLeft + " ";
-    //     timeLeft--;
-
-    //     if (timeLeft === 0) {
-    //         timerEl.textContent = "";
-    //         // speedRead();
-    //         clearInterval(timeInterval);
-    //     }
-    //     //when timerInterval is equal to zero call score function
-    // }, 1000);
-    // timerEl.innerText = timeInterval;
     var timeLeft = questions.length * 15
     var timeInterval = setInterval(function () {
         timerEl.textContent = ("Time: ") + timeLeft;
